@@ -1,0 +1,29 @@
+Jerryho DigitalOcean service
+============================
+
+TODO: Description
+
+# Usage
+
+Start a service
+
+```
+MICRO_REGISTRY=mdns go run main.go
+```
+
+Connect to the service
+
+```
+MICRO_REGISTRY=mdns micro call greeter Greeter.Hello '{"name": "John"}'
+```
+
+# TODO
+
+1. Decide if `proto` directory is ok or not?
+
+    https://github.com/golang-standards/project-layout/ has no `proto` directory.
+    I assume we could copy Helm's layout which uses `_proto` for `*.proto` files and `pkg/proto` for compiled client code.
+    I'm open for discussion. For now, leaving `proto` and `pkg/proto` as it's easier to script it this way.
+
+
+[![Go Report Card](https://goreportcard.com/badge/github.com/jerryhoio/digitalocean?style=flat-square)](https://goreportcard.com/report/github.com/jerryhoio/digitalocean)
