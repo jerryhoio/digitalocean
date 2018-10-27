@@ -4,7 +4,7 @@ import (
 	"context"
 	"log"
 
-	proto "jerryho/digitalocean/pkg/proto/greeter"
+	proto "github.com/jerryhoio/digitalocean/pkg/proto/greeter"
 
 	"github.com/micro/go-micro"
 )

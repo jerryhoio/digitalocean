@@ -1,4 +1,4 @@
-module jerryho/digitalocean
+module github.com/jerryhoio/digitalocean
 
 require (
 	github.com/go-log/log v0.1.0 // indirect
@@ -19,8 +19,6 @@ require (
 	github.com/pborman/uuid v1.2.0 // indirect
 	github.com/pkg/errors v0.8.0 // indirect
 	golang.org/x/crypto v0.0.0-20181025213731-e84da0312774 // indirect
-	golang.org/x/lint v0.0.0-20181026193005-c67002cb31c3 // indirect
 	golang.org/x/net v0.0.0-20181023162649-9b4f9f5ad519 // indirect
 	golang.org/x/sys v0.0.0-20181026203630-95b1ffbd15a5 // indirect
-	golang.org/x/tools v0.0.0-20181026183834-f60e5f99f081 // indirect
 )
