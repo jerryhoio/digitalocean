@@ -1,0 +1,48 @@
+syntax = "proto3";
+
+/**
+ * Objects
+ */
+
+ message Droplet {
+   // ID               int           `json:"id,float64,omitempty"`
+  int64 id = 1;
+  // Name             string        `json:"name,omitempty"`
+  string name = 2;
+  // Memory           int           `json:"memory,omitempty"`
+  int32 memory = 3;
+  // Vcpus            int           `json:"vcpus,omitempty"`
+  int32 vcpus = 4;
+  // Disk             int           `json:"disk,omitempty"`
+  int32 disk = 5;
+  // Region           *Region       `json:"region,omitempty"`
+  // Image            *Image        `json:"image,omitempty"`
+  // Size             *Size         `json:"size,omitempty"`
+  // SizeSlug         string        `json:"size_slug,omitempty"`
+  // BackupIDs        []int         `json:"backup_ids,omitempty"`
+  // NextBackupWindow *BackupWindow `json:"next_backup_window,omitempty"`
+  // SnapshotIDs      []int         `json:"snapshot_ids,omitempty"`
+  // Features         []string      `json:"features,omitempty"`
+  // Locked           bool          `json:"locked,bool,omitempty"`
+  // Status           string        `json:"status,omitempty"`
+  // Networks         *Networks     `json:"networks,omitempty"`
+  // Created          string        `json:"created_at,omitempty"`
+  string created = 6;
+  // Kernel           *Kernel       `json:"kernel,omitempty"`
+  // Tags             []string      `json:"tags,omitempty"`
+  // VolumeIDs        []string      `json:"volume_ids"`
+ }
+
+ /**
+  * Service definitions
+  */
+
+service Droplets {
+	rpc List(ListRequest) returns (ListResponse) {}
+}
+
+message ListRequest {}
+
+message ListResponse {
+	repeated Droplet droplets = 1;
+}

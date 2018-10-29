@@ -7,6 +7,13 @@ Jerryho DigitalOcean service
 
 TODO: Description
 
+# ROE
+
+## PROTO naming
+
+1. Put all `.proto` files in `proto/digitalocean`
+2. Name `.proto` file after `digitalocean/godo` API structs, ex. `Droplets` => `droplets.proto`
+
 # Usage
 
 Start a service
@@ -28,3 +35,19 @@ MICRO_REGISTRY=mdns micro call greeter Greeter.Hello '{"name": "John"}'
     https://github.com/golang-standards/project-layout/ has no `proto` directory.
     I assume we could copy Helm's layout which uses `_proto` for `*.proto` files and `pkg/proto` for compiled client code.
     I'm open for discussion. For now, leaving `proto` and `pkg/proto` as it's easier to script it this way.
+
+2. Decide if we should rename `proto` and `service` packages to be under the same main `package`
+
+    Currently we have:
+
+        ```
+        proto "github.com/jerryhoio/digitalocean/pkg/proto/greeter"
+      	svc "github.com/jerryhoio/digitalocean/pkg/service/greeter"
+        ```
+
+    Maybe a better structure would be:
+
+        ```
+        proto "github.com/jerryhoio/digitalocean/pkg/greeter/proto"
+      	svc "github.com/jerryhoio/digitalocean/pkg/greeter/service"
+        ```

@@ -1,8 +1,10 @@
 module github.com/jerryhoio/digitalocean
 
 require (
+	github.com/digitalocean/godo v1.6.0
 	github.com/go-log/log v0.1.0 // indirect
 	github.com/golang/protobuf v1.2.0
+	github.com/google/go-querystring v1.0.0 // indirect
 	github.com/hashicorp/consul v1.3.0 // indirect
 	github.com/hashicorp/go-cleanhttp v0.5.0 // indirect
 	github.com/hashicorp/go-rootcerts v0.0.0-20160503143440-6bb64b370b90 // indirect
@@ -18,7 +20,9 @@ require (
 	github.com/mitchellh/mapstructure v1.1.2 // indirect
 	github.com/pborman/uuid v1.2.0 // indirect
 	github.com/pkg/errors v0.8.0 // indirect
+	github.com/tent/http-link-go v0.0.0-20130702225549-ac974c61c2f9 // indirect
 	golang.org/x/crypto v0.0.0-20181025213731-e84da0312774 // indirect
 	golang.org/x/net v0.0.0-20181023162649-9b4f9f5ad519 // indirect
+	golang.org/x/oauth2 v0.0.0-20181017192945-9dcd33a902f4
 	golang.org/x/sys v0.0.0-20181026203630-95b1ffbd15a5 // indirect
 )
