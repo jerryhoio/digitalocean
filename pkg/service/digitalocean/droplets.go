@@ -14,22 +14,42 @@ type Droplets struct {
 
 // List function returns List with provided string - just for fun
 func (g *Droplets) List(ctx context.Context, req *proto.ListRequest, rsp *proto.ListResponse) error {
-	rDroplets, _, _ := g.Client.Droplets.List(ctx, &godo.ListOptions{})
+	var list []*proto.Droplet
+	rsp.Droplets = list
 
-	var droplets []*proto.Droplet
-	for _, d := range rDroplets {
-		droplets = append(droplets, &proto.Droplet{
-			Id:      int64(d.ID),
-			Name:    d.Name,
-			Memory:  int32(d.Memory),
-			Vcpus:   int32(d.Vcpus),
-			Disk:    int32(d.Disk),
-			Created: d.Created,
-		})
+	opt := &godo.ListOptions{}
+	for {
+		rDroplets, resp, err := g.Client.Droplets.List(ctx, opt)
+		if err != nil {
+			return err
+		}
+
+		for _, d := range rDroplets {
+			list = append(list, &proto.Droplet{
+				Id:      int64(d.ID),
+				Name:    d.Name,
+				Memory:  int32(d.Memory),
+				Vcpus:   int32(d.Vcpus),
+				Disk:    int32(d.Disk),
+				Created: d.Created,
+			})
+		}
+
+		// if we are at the last page, break out the for loop
+		if resp.Links == nil || resp.Links.IsLastPage() {
+			break
+		}
+
+		page, err := resp.Links.CurrentPage()
+		if err != nil {
+			return err
+		}
+
+		// set the page we want for the next request
+		opt.Page = page + 1
 	}
 
-	//TODO: Add pagination, handle pagination
+	rsp.Droplets = list
 
-	rsp.Droplets = droplets
 	return nil
 }
