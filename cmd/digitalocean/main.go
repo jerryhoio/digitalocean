@@ -13,10 +13,22 @@ import (
 
 	do "github.com/jerryhoio/digitalocean/pkg/digitalocean"
 
+	"github.com/micro/go-micro/server"
+
 	"github.com/digitalocean/godo"
 	"github.com/micro/go-micro"
 	"golang.org/x/oauth2"
 )
+
+// implements the server.HandlerWrapper
+func logWrapper(fn server.HandlerFunc) server.HandlerFunc {
+	return func(ctx context.Context, req server.Request, rsp interface{}) error {
+		log.Printf("Server request: %s", req.Method())
+		//TODO: Make it log more details (maybe client IP, provided opts etc.)
+
+		return fn(ctx, req, rsp)
+	}
+}
 
 func main() {
 	log.Println("Checking environment...")
@@ -35,6 +47,7 @@ func main() {
 
 	service := micro.NewService(
 		micro.Name("digitalocean"),
+		micro.WrapHandler(logWrapper),
 	)
 
 	service.Init()
