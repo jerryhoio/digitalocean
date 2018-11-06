@@ -3,6 +3,67 @@ syntax = "proto3";
 /**
  * Objects
  */
+message Image {
+  int64 id = 1;
+  string name = 2;
+  string type = 3;
+  string distribution = 4;
+  string slug = 5;
+  bool public = 6;
+  repeated string regions = 7;
+  int32 minDiskSize = 8;
+  string created = 9;
+}
+
+message Region {
+  string slug = 1;
+  string name = 2;
+  repeated string sizes = 3;
+  bool available = 4;
+  repeated string features = 5;
+}
+
+message Size {
+  string slug = 1;
+  int32 memory = 2;
+  int32 vcpus = 3;
+  int32 disk = 4;
+  double priceMonthly = 5;
+  double priceHourly = 6;
+  repeated string regions = 7;
+  bool available = 8;
+  double transfer = 9;
+}
+
+message BackupWindow {
+	string start = 1;
+	string end  = 2;
+}
+
+message NetworkV4 {
+	string iPAddress = 1;
+	string netmask = 2;
+	string gateway = 3;
+	string type = 4;
+}
+
+message NetworkV6 {
+	string iPAddress = 1;
+	int32 netmask = 2;
+	string gateway = 3;
+	string type = 4;
+}
+
+message Networks {
+  repeated NetworkV4 v4 = 1;
+  repeated NetworkV6 v6 = 2;
+}
+
+message Kernel {
+  int64 id = 1;
+  string name = 2;
+  string version = 3;
+}
 
  message Droplet {
    // ID               int           `json:"id,float64,omitempty"`
@@ -16,21 +77,35 @@ syntax = "proto3";
   // Disk             int           `json:"disk,omitempty"`
   int32 disk = 5;
   // Region           *Region       `json:"region,omitempty"`
+  Region region = 6;
   // Image            *Image        `json:"image,omitempty"`
+  Image image = 7;
   // Size             *Size         `json:"size,omitempty"`
+  Size size = 8;
   // SizeSlug         string        `json:"size_slug,omitempty"`
+  repeated string sizeSlug = 9;
   // BackupIDs        []int         `json:"backup_ids,omitempty"`
+  repeated int32 backupIds = 10;
   // NextBackupWindow *BackupWindow `json:"next_backup_window,omitempty"`
+  BackupWindow nextBackupWindow = 11;
   // SnapshotIDs      []int         `json:"snapshot_ids,omitempty"`
+  repeated int32 snapshotIds = 12;
   // Features         []string      `json:"features,omitempty"`
+  repeated string features = 13;
   // Locked           bool          `json:"locked,bool,omitempty"`
+  bool locked = 14;
   // Status           string        `json:"status,omitempty"`
+  string status = 15;
   // Networks         *Networks     `json:"networks,omitempty"`
+  Networks networks = 16;
   // Created          string        `json:"created_at,omitempty"`
-  string created = 6;
+  string created = 17;
   // Kernel           *Kernel       `json:"kernel,omitempty"`
+  Kernel Kernel = 18;
   // Tags             []string      `json:"tags,omitempty"`
+  repeated string tags = 19;
   // VolumeIDs        []string      `json:"volume_ids"`
+  repeated string volumeIds = 20;
  }
 
  /**

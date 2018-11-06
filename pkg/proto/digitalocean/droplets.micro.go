@@ -8,6 +8,14 @@ It is generated from these files:
 	proto/digitalocean/droplets.proto
 
 It has these top-level messages:
+	Image
+	Region
+	Size
+	BackupWindow
+	NetworkV4
+	NetworkV6
+	Networks
+	Kernel
 	Droplet
 	ListRequest
 	ListResponse
