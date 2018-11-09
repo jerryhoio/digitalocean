@@ -28,6 +28,32 @@ Connect to the service
 MICRO_REGISTRY=mdns micro call greeter Greeter.Hello '{"name": "John"}'
 ```
 
+#EXAMPLES:
+
+1. List
+
+```
+MICRO_REGISTRY=mdns micro call digitalocean Droplets.List
+```
+
+2. Create
+
+```
+MICRO_REGISTRY=mdns micro call digitalocean Droplets.Create '{"name":"Foo","image":"ubuntu-14-04-x64","region":"nyc3","size":"s-1vcpu-1gb"}'
+```
+
+3. Get
+
+```
+MICRO_REGISTRY=mdns micro call digitalocean Droplets.Get '{"id":118550799}'
+```
+
+4. Delete
+
+```
+MICRO_REGISTRY=mdns micro call digitalocean Droplets.Get '{"id":118550799}'
+```
+
 # TODO
 
 1. Decide if `proto` directory is ok or not?
@@ -51,3 +77,5 @@ MICRO_REGISTRY=mdns micro call greeter Greeter.Hello '{"name": "John"}'
         proto "github.com/jerryhoio/digitalocean/pkg/greeter/proto"
       	svc "github.com/jerryhoio/digitalocean/pkg/greeter/service"
         ```
+
+3. Logging - decide if and how to log events.

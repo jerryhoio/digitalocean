@@ -19,6 +19,12 @@ It has these top-level messages:
 	Droplet
 	ListRequest
 	ListResponse
+	GetRequest
+	GetResponse
+	CreateRequest
+	CreateResponse
+	DeleteRequest
+	DeleteResponse
 */
 package droplets
 
@@ -52,6 +58,9 @@ var _ server.Option
 
 type DropletsService interface {
 	List(ctx context.Context, in *ListRequest, opts ...client.CallOption) (*ListResponse, error)
+	Get(ctx context.Context, in *GetRequest, opts ...client.CallOption) (*GetResponse, error)
+	Create(ctx context.Context, in *CreateRequest, opts ...client.CallOption) (*CreateResponse, error)
+	Delete(ctx context.Context, in *DeleteRequest, opts ...client.CallOption) (*DeleteResponse, error)
 }
 
 type dropletsService struct {
@@ -82,15 +91,51 @@ func (c *dropletsService) List(ctx context.Context, in *ListRequest, opts ...cli
 	return out, nil
 }
 
+func (c *dropletsService) Get(ctx context.Context, in *GetRequest, opts ...client.CallOption) (*GetResponse, error) {
+	req := c.c.NewRequest(c.name, "Droplets.Get", in)
+	out := new(GetResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dropletsService) Create(ctx context.Context, in *CreateRequest, opts ...client.CallOption) (*CreateResponse, error) {
+	req := c.c.NewRequest(c.name, "Droplets.Create", in)
+	out := new(CreateResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *dropletsService) Delete(ctx context.Context, in *DeleteRequest, opts ...client.CallOption) (*DeleteResponse, error) {
+	req := c.c.NewRequest(c.name, "Droplets.Delete", in)
+	out := new(DeleteResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for Droplets service
 
 type DropletsHandler interface {
 	List(context.Context, *ListRequest, *ListResponse) error
+	Get(context.Context, *GetRequest, *GetResponse) error
+	Create(context.Context, *CreateRequest, *CreateResponse) error
+	Delete(context.Context, *DeleteRequest, *DeleteResponse) error
 }
 
 func RegisterDropletsHandler(s server.Server, hdlr DropletsHandler, opts ...server.HandlerOption) error {
 	type droplets interface {
 		List(ctx context.Context, in *ListRequest, out *ListResponse) error
+		Get(ctx context.Context, in *GetRequest, out *GetResponse) error
+		Create(ctx context.Context, in *CreateRequest, out *CreateResponse) error
+		Delete(ctx context.Context, in *DeleteRequest, out *DeleteResponse) error
 	}
 	type Droplets struct {
 		droplets
@@ -105,4 +150,16 @@ type dropletsHandler struct {
 
 func (h *dropletsHandler) List(ctx context.Context, in *ListRequest, out *ListResponse) error {
 	return h.DropletsHandler.List(ctx, in, out)
+}
+
+func (h *dropletsHandler) Get(ctx context.Context, in *GetRequest, out *GetResponse) error {
+	return h.DropletsHandler.Get(ctx, in, out)
+}
+
+func (h *dropletsHandler) Create(ctx context.Context, in *CreateRequest, out *CreateResponse) error {
+	return h.DropletsHandler.Create(ctx, in, out)
+}
+
+func (h *dropletsHandler) Delete(ctx context.Context, in *DeleteRequest, out *DeleteResponse) error {
+	return h.DropletsHandler.Delete(ctx, in, out)
 }
